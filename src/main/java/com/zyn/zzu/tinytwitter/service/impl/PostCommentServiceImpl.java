@@ -57,6 +57,7 @@ public class PostCommentServiceImpl implements PostCommentService {
              * 新闻推送中的每一项都必须是由用户关注的人或者是用户自己发布的推文。
              * 推文必须按照时间顺序由最近到最远排序。
              */
+            @Override
             public List<Integer> getNewsFeed(int userId) {
 
                 UserEntity user = userDao.selectByPrimaryKey(userId);

@@ -4,6 +4,7 @@ package com.zyn.zzu.tinytwitter.service;
 import com.zyn.zzu.common.utils.R;
 import com.zyn.zzu.tinytwitter.entity.PostCommentEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,5 +19,7 @@ public interface PostCommentService {
 
 
     R postTweet(int userId, int contentId);
+
+    List<Integer> getNewsFeed(int userId);
 }
 
