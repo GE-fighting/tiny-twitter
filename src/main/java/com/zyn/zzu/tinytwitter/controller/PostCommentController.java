@@ -1,6 +1,7 @@
 package com.zyn.zzu.tinytwitter.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +41,13 @@ public class PostCommentController {
     }
 
     /**
-     * 列表
+     * 主信息流功能
      */
+    @RequestMapping("/getNewsFeed")
+    public R getNewsFeed(@RequestParam Integer userId){
+        List<Integer> newsFeeds =  postCommentService.getNewsFeed(userId);
+        return R.ok().put("userId",newsFeeds);
+    }
 //    @RequestMapping("/list")
 //    public R list(@RequestParam Map<String, Object> params){
 //        PageUtils page = postCommentService.queryPage(params);

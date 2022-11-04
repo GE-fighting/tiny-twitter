@@ -28,7 +28,6 @@ public class FollowServiceImpl implements FollowService {
         }
         //用户 id 和他关注的用户列表的对应关系
         Map<Integer, Set<Integer>> followings = new HashMap<>();
-
         // 获取我自己的关注列表
         Set<Integer> followingList = followings.get(followerId);
         if (followingList == null) {
