@@ -17,8 +17,7 @@ spring:
 
 
 
-mybatis-plus:
-  mapperLocations: classpath:mapper/**/*.xml
+
 
 
 pagehelper:

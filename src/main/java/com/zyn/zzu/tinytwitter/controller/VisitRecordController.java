@@ -33,52 +33,52 @@ public class VisitRecordController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = visitRecordService.queryPage(params);
-
-        return R.ok().put("page", page);
-    }
-
-
-    /**
-     * 信息
-     */
-    @RequestMapping("/info/{recordId}")
-    public R info(@PathVariable("recordId") Integer recordId){
-		VisitRecordEntity visitRecord = visitRecordService.getById(recordId);
-
-        return R.ok().put("visitRecord", visitRecord);
-    }
-
-    /**
-     * 保存
-     */
-    @RequestMapping("/save")
-    public R save(@RequestBody VisitRecordEntity visitRecord){
-		visitRecordService.save(visitRecord);
-
-        return R.ok();
-    }
-
-    /**
-     * 修改
-     */
-    @RequestMapping("/update")
-    public R update(@RequestBody VisitRecordEntity visitRecord){
-		visitRecordService.updateById(visitRecord);
-
-        return R.ok();
-    }
-
-    /**
-     * 删除
-     */
-    @RequestMapping("/delete")
-    public R delete(@RequestBody Integer[] recordIds){
-		visitRecordService.removeByIds(Arrays.asList(recordIds));
-
-        return R.ok();
-    }
+//    @RequestMapping("/list")
+//    public R list(@RequestParam Map<String, Object> params){
+//        PageUtils page = visitRecordService.queryPage(params);
+//
+//        return R.ok().put("page", page);
+//    }
+//
+//
+//    /**
+//     * 信息
+//     */
+//    @RequestMapping("/info/{recordId}")
+//    public R info(@PathVariable("recordId") Integer recordId){
+//		VisitRecordEntity visitRecord = visitRecordService.getById(recordId);
+//
+//        return R.ok().put("visitRecord", visitRecord);
+//    }
+//
+//    /**
+//     * 保存
+//     */
+//    @RequestMapping("/save")
+//    public R save(@RequestBody VisitRecordEntity visitRecord){
+//		visitRecordService.save(visitRecord);
+//
+//        return R.ok();
+//    }
+//
+//    /**
+//     * 修改
+//     */
+//    @RequestMapping("/update")
+//    public R update(@RequestBody VisitRecordEntity visitRecord){
+//		visitRecordService.updateById(visitRecord);
+//
+//        return R.ok();
+//    }
+//
+//    /**
+//     * 删除
+//     */
+//    @RequestMapping("/delete")
+//    public R delete(@RequestBody Integer[] recordIds){
+//		visitRecordService.removeByIds(Arrays.asList(recordIds));
+//
+//        return R.ok();
+//    }
 
 }

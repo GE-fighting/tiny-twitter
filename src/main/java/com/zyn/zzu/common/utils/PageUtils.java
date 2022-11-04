@@ -1,7 +1,7 @@
 package com.zyn.zzu.common.utils;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.zyn.zzu.tinytwitter.entity.FollowEntity;
+
+
 
 import java.io.Serializable;
 import java.util.List;
@@ -41,8 +41,7 @@ public class PageUtils implements Serializable {
 		this.totalPage = (int)Math.ceil((double)totalCount/pageSize);
 	}
 
-	public PageUtils(IPage<?> page) {
-	}
+
 
 	public int getTotalCount() {
 		return totalCount;

@@ -1,9 +1,9 @@
 package com.zyn.zzu.tinytwitter.dao;
 
 import com.zyn.zzu.tinytwitter.entity.PostCommentEntity;
-//import com.baomidou.mybatisplus.core.mapper.Mapper;
-import org.apache.ibatis.annotations.Mapper;
-import tk.mybatis.mapper.common.BaseMapper;
+
+import org.springframework.stereotype.Repository;
+import tk.mybatis.mapper.common.Mapper;
 
 /**
  * 
@@ -12,7 +12,7 @@ import tk.mybatis.mapper.common.BaseMapper;
  * @email sunlightcs@gmail.com
  * @date 2022-11-02 13:11:11
  */
-@Mapper
-public interface PostCommentDao extends BaseMapper<PostCommentEntity> {
+@Repository
+public interface PostCommentDao extends Mapper<PostCommentEntity> {
 	
 }

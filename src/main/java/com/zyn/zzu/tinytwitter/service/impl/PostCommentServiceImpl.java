@@ -1,6 +1,5 @@
 package com.zyn.zzu.tinytwitter.service.impl;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyn.zzu.common.utils.R;
 import com.zyn.zzu.tinytwitter.dao.FollowDao;
 import com.zyn.zzu.tinytwitter.dao.UserDao;
@@ -12,10 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zyn.zzu.common.utils.PageUtils;
+
 
 import com.zyn.zzu.tinytwitter.dao.PostCommentDao;
 import com.zyn.zzu.tinytwitter.entity.PostCommentEntity;
@@ -26,17 +22,9 @@ import tk.mybatis.mapper.entity.Example;
 
 
 @Service
-public class PostCommentServiceImpl extends ServiceImpl<PostCommentDao, PostCommentEntity> implements PostCommentService {
+public class PostCommentServiceImpl implements PostCommentService {
 
-    @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        IPage<PostCommentEntity> page = this.page(
-                new Page<>(),
-                new QueryWrapper<PostCommentEntity>()
-        );
 
-        return new PageUtils(page);
-    }
 
     @Autowired
     private PostCommentDao postCommentDao;
@@ -70,14 +58,17 @@ public class PostCommentServiceImpl extends ServiceImpl<PostCommentDao, PostComm
              * 推文必须按照时间顺序由最近到最远排序。
              */
             public List<Integer> getNewsFeed(int userId) {
-                UserEntity user = userDao.selectById(userId);
+
+                UserEntity user = userDao.selectByPrimaryKey(userId);
                 if (user == null) {
                     throw new RuntimeException("该用户不存在!");
                 }
                 //1、用户 id 和他关注的用户列表id
                 //todo 用sql
-                FollowEntity followList = followDao.selectById(userId);
-                List<Integer> idList = followList.stream().map(FollowEntity::getfolloweeId).collect(Collectors.toList());
+                Example followExample = new Example(FollowEntity.class);
+                followExample.createCriteria().andEqualTo("follower_id",userId);
+                List<FollowEntity> followList = followDao.selectByExample(followExample);
+                List<Integer> idList = followList.stream().map(FollowEntity::getFolloweeId).collect(Collectors.toList());
                 //2、如果关注列表是空，直接返回用户自己的推文
                 if(CollectionUtils.isEmpty(idList)){
                     return new ArrayList<>();
@@ -89,7 +80,8 @@ public class PostCommentServiceImpl extends ServiceImpl<PostCommentDao, PostComm
                 example.setOrderByClause("create_time desc");
                 Example.Criteria criteria = example.createCriteria();
                 criteria.andIn("id", idList);
-                res = postCommentDao.selectByExample(example);
+                res = postCommentDao.selectByExample(example).stream().map(PostCommentEntity::getCommentId).collect(Collectors.toList());
+
                 //todo提取前15条
                 return res;
             }

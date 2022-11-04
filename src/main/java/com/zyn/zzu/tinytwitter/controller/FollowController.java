@@ -34,52 +34,52 @@ public class FollowController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = followService.queryPage(params);
-
-        return R.ok().put("page", page);
-    }
+//    @RequestMapping("/list")
+//    public R list(@RequestParam Map<String, Object> params){
+//        PageUtils page = followService.queryPage(params);
+//
+//        return R.ok().put("page", page);
+//    }
 
 
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
-    public R info(@PathVariable("id") Integer id){
-		FollowEntity follow = followService.getById(id);
-
-        return R.ok().put("follow", follow);
-    }
+//    @RequestMapping("/info/{id}")
+//    public R info(@PathVariable("id") Integer id){
+//		FollowEntity follow = followService.getById(id);
+//
+//        return R.ok().put("follow", follow);
+//    }
 
     /**
      * 保存
      */
-    @RequestMapping("/save")
-    public R save(@RequestBody FollowEntity follow){
-		followService.save(follow);
-
-        return R.ok();
-    }
+//    @RequestMapping("/save")
+//    public R save(@RequestBody FollowEntity follow){
+//		followService.save(follow);
+//
+//        return R.ok();
+//    }
 
     /**
      * 修改
      */
-    @RequestMapping("/update")
-    public R update(@RequestBody FollowEntity follow){
-		followService.updateById(follow);
-
-        return R.ok();
-    }
+//    @RequestMapping("/update")
+//    public R update(@RequestBody FollowEntity follow){
+//		followService.updateById(follow);
+//
+//        return R.ok();
+//    }
 
     /**
      * 删除
      */
-    @RequestMapping("/delete")
-    public R delete(@RequestBody Integer[] ids){
-		followService.removeByIds(Arrays.asList(ids));
-
-        return R.ok();
-    }
+//    @RequestMapping("/delete")
+//    public R delete(@RequestBody Integer[] ids){
+//		followService.removeByIds(Arrays.asList(ids));
+//
+//        return R.ok();
+//    }
 
 }

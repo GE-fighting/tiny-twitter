@@ -42,52 +42,52 @@ public class PostCommentController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = postCommentService.queryPage(params);
-
-        return R.ok().put("page", page);
-    }
+//    @RequestMapping("/list")
+//    public R list(@RequestParam Map<String, Object> params){
+//        PageUtils page = postCommentService.queryPage(params);
+//
+//        return R.ok().put("page", page);
+//    }
 
 
     /**
      * 信息
      */
-    @RequestMapping("/info/{commentId}")
-    public R info(@PathVariable("commentId") Integer commentId){
-		PostCommentEntity postComment = postCommentService.getById(commentId);
-
-        return R.ok().put("postComment", postComment);
-    }
+//    @RequestMapping("/info/{commentId}")
+//    public R info(@PathVariable("commentId") Integer commentId){
+//		PostCommentEntity postComment = postCommentService.getById(commentId);
+//
+//        return R.ok().put("postComment", postComment);
+//    }
 
     /**
      * 保存
      */
-    @RequestMapping("/save")
-    public R save(@RequestBody PostCommentEntity postComment){
-		postCommentService.save(postComment);
-
-        return R.ok();
-    }
+//    @RequestMapping("/save")
+//    public R save(@RequestBody PostCommentEntity postComment){
+//		postCommentService.save(postComment);
+//
+//        return R.ok();
+//    }
 
     /**
      * 修改
      */
-    @RequestMapping("/update")
-    public R update(@RequestBody PostCommentEntity postComment){
-		postCommentService.updateById(postComment);
-
-        return R.ok();
-    }
+//    @RequestMapping("/update")
+//    public R update(@RequestBody PostCommentEntity postComment){
+//		postCommentService.updateById(postComment);
+//
+//        return R.ok();
+//    }
 
     /**
      * 删除
      */
-    @RequestMapping("/delete")
-    public R delete(@RequestBody Integer[] commentIds){
-		postCommentService.removeByIds(Arrays.asList(commentIds));
-
-        return R.ok();
-    }
+//    @RequestMapping("/delete")
+//    public R delete(@RequestBody Integer[] commentIds){
+//		postCommentService.removeByIds(Arrays.asList(commentIds));
+//
+//        return R.ok();
+//    }
 
 }

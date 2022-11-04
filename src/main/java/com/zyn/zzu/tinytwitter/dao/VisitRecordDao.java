@@ -1,9 +1,10 @@
 package com.zyn.zzu.tinytwitter.dao;
 
 import com.zyn.zzu.tinytwitter.entity.VisitRecordEntity;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
 
+
+import org.springframework.stereotype.Repository;
+import tk.mybatis.mapper.common.Mapper;
 /**
  * 
  * 
@@ -11,7 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @email sunlightcs@gmail.com
  * @date 2022-11-02 13:11:10
  */
-@Mapper
-public interface VisitRecordDao extends BaseMapper<VisitRecordEntity> {
+@Repository
+public interface VisitRecordDao extends Mapper<VisitRecordEntity> {
 	
 }

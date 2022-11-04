@@ -1,11 +1,13 @@
 package com.zyn.zzu.tinytwitter.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+
 
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
+
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * 
@@ -15,14 +17,14 @@ import lombok.Data;
  * @date 2022-11-02 13:11:10
  */
 @Data
-@TableName("user")
+@Table(name="user")
 public class UserEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 主键id
 	 */
-	@TableId
+	@Id
 	private Integer userId;
 	/**
 	 * 用户名
