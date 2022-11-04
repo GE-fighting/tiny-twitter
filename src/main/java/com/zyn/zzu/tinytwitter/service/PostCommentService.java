@@ -2,6 +2,7 @@ package com.zyn.zzu.tinytwitter.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zyn.zzu.common.utils.PageUtils;
+import com.zyn.zzu.common.utils.R;
 import com.zyn.zzu.tinytwitter.entity.PostCommentEntity;
 
 import java.util.Map;
@@ -16,5 +17,7 @@ import java.util.Map;
 public interface PostCommentService extends IService<PostCommentEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    R postTweet(int userId, int contentId);
 }
 

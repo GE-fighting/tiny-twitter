@@ -31,6 +31,15 @@ public class PostCommentController {
     private PostCommentService postCommentService;
 
     /**
+     * 发布推文
+     */
+    @RequestMapping("/postComment")
+    public R postComment(@RequestParam Integer userId, @RequestParam Integer contentId){
+        postCommentService.postTweet(userId,contentId);
+        return R.ok();
+    }
+
+    /**
      * 列表
      */
     @RequestMapping("/list")
