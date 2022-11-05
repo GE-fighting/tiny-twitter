@@ -48,12 +48,6 @@ public class PostCommentController {
         List<Integer> newsFeeds =  postCommentService.getNewsFeed(userId);
         return R.ok().put("userId",newsFeeds);
     }
-//    @RequestMapping("/list")
-//    public R list(@RequestParam Map<String, Object> params){
-//        PageUtils page = postCommentService.queryPage(params);
-//
-//        return R.ok().put("page", page);
-//    }
 
 
     /**

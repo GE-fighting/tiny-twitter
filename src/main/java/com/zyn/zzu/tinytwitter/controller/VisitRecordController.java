@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -33,6 +34,12 @@ public class VisitRecordController {
     public R getHotContent(){
         List<Integer> hotContents = visitRecordService.getHotContents();
         return R.ok().put("hotContentId",hotContents);
+    }
+
+    @RequestMapping("/getVisitContent")
+    public R vistContent (@RequestParam Integer contentId) {
+        visitRecordService.vistContent(contentId);
+        return R.ok();
     }
 
 }

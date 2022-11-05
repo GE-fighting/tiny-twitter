@@ -32,14 +32,23 @@ public class FollowController {
     private FollowService followService;
 
     /**
-     * 列表
+     * 关注
+    */
+    @RequestMapping("/follow")
+    public R follow(@RequestParam Integer followerId, @RequestParam Integer followeeId){
+         followService.follow(followerId, followeeId);
+         return R.ok();
+    }
+
+    /**
+     * 取消关注
      */
-//    @RequestMapping("/list")
-//    public R list(@RequestParam Map<String, Object> params){
-//        PageUtils page = followService.queryPage(params);
-//
-//        return R.ok().put("page", page);
-//    }
+    @RequestMapping("/unfollow")
+    public R unFollow(@RequestParam Integer followerId, @RequestParam Integer followeeId){
+        followService.unFollow(followerId, followeeId);
+        return R.ok();
+    }
+
 
 
     /**

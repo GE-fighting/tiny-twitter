@@ -1,45 +1,52 @@
 package com.zyn.zzu.tinytwitter.service.impl;
 
 
+import com.zyn.zzu.common.utils.R;
+import com.zyn.zzu.tinytwitter.dao.FollowDao;
+import com.zyn.zzu.tinytwitter.entity.FollowEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 import com.zyn.zzu.tinytwitter.service.FollowService;
+import tk.mybatis.mapper.entity.Example;
 
 
 @Service("followService")
 public class FollowServiceImpl implements FollowService {
-
     /**
      * 关注其他用户
      *
      * @param followerId 发起关注者 id
      * @param followeeId 被关注者 id
      */
-    public void follow(int followerId, int followeeId) {
-        // 被关注人不能是自己
+    @Autowired
+    private FollowDao followDao;
+
+    public R follow(Integer followerId, Integer followeeId) {
+        // 1、被关注人不能是自己
         if (followeeId == followerId) {
-            return;
+            throw new RuntimeException("自己不能关注自己哦~");
         }
-        //用户 id 和他关注的用户列表的对应关系
-        Map<Integer, Set<Integer>> followings = new HashMap<>();
-        // 获取我自己的关注列表
-        Set<Integer> followingList = followings.get(followerId);
-        if (followingList == null) {
-            Set<Integer> init = new HashSet<>();
-            init.add(followeeId);
-            followings.put(followerId, init);
-        } else {
-            if (followingList.contains(followeeId)) {
-                return;
-            }
-            followingList.add(followeeId);
+        // 2、获取我自己的关注列表
+        Example example = new Example(FollowEntity.class);
+        example.createCriteria().andEqualTo("followerId", followerId);
+        List<Integer> followingList = followDao
+                .selectByExample(example).stream().map(FollowEntity::getFolloweeId).collect(Collectors.toList());
+        ;
+        if (followingList.contains(followeeId)) {
+            throw new RuntimeException("已关注，不能重复关注呢~");
         }
+        Date nowDate = new Date();
+        followDao.insertSelective(new FollowEntity() {{
+            setFollowerId(followerId);
+            setFolloweeId(followeeId);
+            setCreateAt(nowDate);
+        }});
+        return R.ok();
     }
 
 
@@ -49,20 +56,22 @@ public class FollowServiceImpl implements FollowService {
      * @param followerId 发起取消关注的人的 id
      * @param followeeId 被取消关注的人的 id
      */
-    public void unfollow(int followerId, int followeeId) {
-        if (followeeId == followerId) {
-            return;
+    public R unFollow(Integer followerId, Integer followeeId) {
+        // 1、获取我自己的关注列表
+        Example example = new Example(FollowEntity.class);
+        example.createCriteria().andEqualTo("followerId", followerId);
+        List<Integer> followingList = followDao.selectByExample(example).stream().map(FollowEntity::getFolloweeId).collect(Collectors.toList());
+        ;
+        // 2、判断取消关注的人是否在关注列表里面
+        if (followingList == null || !followingList.contains(followeeId)) {
+            throw new RuntimeException("未关注，无法取消关注~");
         }
-        //查询我关注的列表
-        Map<Integer, Set<Integer>> followings = new HashMap<>();
-        // 获取我自己的关注列表
-        Set<Integer> followingList = followings.get(followerId);
-
-        if (followingList == null) {
-            return;
-        }
-        // 这里删除之前无需做判断，因为查找是否存在以后，就可以删除，反正删除之前都要查找
-        followingList.remove(followeeId);
+        // 3、取消关注即删除
+        Example unfollowExample = new Example(FollowEntity.class);
+        unfollowExample.createCriteria()
+                .andEqualTo("followerId", followerId)
+                .andEqualTo("followeeId", followeeId);
+        followDao.deleteByExample(unfollowExample);
+        return R.ok();
     }
-
 }

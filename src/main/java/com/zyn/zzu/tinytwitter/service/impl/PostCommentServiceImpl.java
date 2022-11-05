@@ -42,14 +42,18 @@ public class PostCommentServiceImpl implements PostCommentService {
         @Transactional(rollbackFor = Exception.class)
         @Override
         public R postTweet(int userId, int contentId) {
-                Date nowDate = new Date();
-                PostCommentEntity postCommentEntity = new PostCommentEntity();
-                postCommentEntity.setCommentId(contentId);
-                postCommentEntity.setCreateBy(userId);
-                postCommentEntity.setCreateAt(nowDate);
-                postCommentEntity.setStatus(1);
-                postCommentDao.insert(postCommentEntity);
-                return new R();
+            Date nowDate = new Date();
+            UserEntity user = userDao.selectByPrimaryKey(userId);
+            if (user == null) {
+                throw new RuntimeException("该用户不存在!");
+            }
+            PostCommentEntity postCommentEntity = new PostCommentEntity();
+            postCommentEntity.setCommentId(contentId);
+            postCommentEntity.setCreateBy(userId);
+            postCommentEntity.setCreateAt(nowDate);
+            postCommentEntity.setStatus(1);
+            postCommentDao.insert(postCommentEntity);
+            return new R();
         }
 
             /**
@@ -87,7 +91,6 @@ public class PostCommentServiceImpl implements PostCommentService {
                 Example.Criteria criteria = example.createCriteria();
                 criteria.andIn("commentId", idList);
                 List<Integer> res = postCommentDao.selectByExample(example).stream().map(PostCommentEntity::getCommentId).collect(Collectors.toList());
-                //todo 提取前15条
                 if (res.size()>15) {
                     return res.subList(0, 15);
                 }

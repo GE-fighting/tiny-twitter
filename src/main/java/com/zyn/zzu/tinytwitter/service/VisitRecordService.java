@@ -1,6 +1,7 @@
 package com.zyn.zzu.tinytwitter.service;
 
 
+import com.zyn.zzu.common.utils.R;
 import com.zyn.zzu.tinytwitter.entity.VisitRecordEntity;
 
 import java.util.List;
@@ -16,6 +17,8 @@ import java.util.Map;
 public interface VisitRecordService {
 
     List<Integer> getHotContents();
+
+    R vistContent (Integer contentId);
 
 }
 

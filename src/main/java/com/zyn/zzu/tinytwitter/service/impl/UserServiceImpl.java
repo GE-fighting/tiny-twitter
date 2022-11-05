@@ -10,6 +10,4 @@ import com.zyn.zzu.tinytwitter.service.UserService;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
-
-
 }
