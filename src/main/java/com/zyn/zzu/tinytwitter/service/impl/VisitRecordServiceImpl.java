@@ -6,7 +6,6 @@ import com.zyn.zzu.common.utils.R;
 import com.zyn.zzu.tinytwitter.dao.VisitRecordDao;
 
 import com.zyn.zzu.tinytwitter.entity.VisitRecordEntity;
-import com.zyn.zzu.tinytwitter.service.ConcurrentLRUCache;
 import com.zyn.zzu.tinytwitter.service.LruCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,13 +25,12 @@ public class VisitRecordServiceImpl implements VisitRecordService {
     LruCache lru = new LruCache(100);
 
 
-
     @Override
-    public R vistContent (Integer contentId){
+    public R vistContent(Integer contentId) {
         //从数据库找到当日100个数据,最经常访问的，put 再get
         List<Integer> res = getContents();
-        if(res!=null) {
-            for(int i = 0; i <res.size()-1; i++){
+        if (res != null) {
+            for (int i = 0; i < res.size() - 1; i++) {
                 lru.put(res.get(i));
             }
         }
@@ -48,7 +46,7 @@ public class VisitRecordServiceImpl implements VisitRecordService {
         calendar.set(Calendar.MILLISECOND, 0);
         Date time = calendar.getTime();
         Example example = new Example(VisitRecordEntity.class);
-        example.createCriteria().andGreaterThan("visitAt",time);
+        example.createCriteria().andGreaterThan("visitAt", time);
 
         List<Integer> list = visitRecordDao.selectByExample(example)
                 .stream().collect(Collectors.groupingBy(VisitRecordEntity::getPostCommentId))
@@ -59,8 +57,8 @@ public class VisitRecordServiceImpl implements VisitRecordService {
                     return object;
                 }).sorted(Comparator.comparing(obj -> ((JSONObject) obj).getInteger("size")).reversed())
                 .map(obj -> obj.getInteger("contentId")).collect(Collectors.toList());
-        if (list.size()>100){
-            return list.subList(0,100);
+        if (list.size() > 100) {
+            return list.subList(0, 100);
         }
         return list;
     }
@@ -74,7 +72,7 @@ public class VisitRecordServiceImpl implements VisitRecordService {
         calendar.set(Calendar.MILLISECOND, 0);
         Date time = calendar.getTime();
         Example example = new Example(VisitRecordEntity.class);
-        example.createCriteria().andGreaterThan("visitAt",time);
+        example.createCriteria().andGreaterThan("visitAt", time);
 
         List<Integer> list = visitRecordDao.selectByExample(example)
                 .stream().collect(Collectors.groupingBy(VisitRecordEntity::getPostCommentId))
@@ -85,8 +83,8 @@ public class VisitRecordServiceImpl implements VisitRecordService {
                     return object;
                 }).sorted(Comparator.comparing(obj -> ((JSONObject) obj).getInteger("size")).reversed())
                 .map(obj -> obj.getInteger("contentId")).collect(Collectors.toList());
-        if (list.size()>15){
-            return list.subList(0,15);
+        if (list.size() > 15) {
+            return list.subList(0, 15);
         }
         return list;
     }

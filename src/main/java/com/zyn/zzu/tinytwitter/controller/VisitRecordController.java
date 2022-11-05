@@ -41,5 +41,4 @@ public class VisitRecordController {
         visitRecordService.vistContent(contentId);
         return R.ok();
     }
-
 }

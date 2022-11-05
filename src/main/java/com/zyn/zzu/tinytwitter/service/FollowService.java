@@ -4,7 +4,6 @@ package com.zyn.zzu.tinytwitter.service;
 
 import com.zyn.zzu.common.utils.R;
 
-import java.util.Map;
 
 /**
  * 

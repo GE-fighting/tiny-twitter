@@ -1,19 +1,15 @@
 package com.zyn.zzu.tinytwitter.controller;
 
-import java.util.Arrays;
+
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zyn.zzu.tinytwitter.entity.PostCommentEntity;
 import com.zyn.zzu.tinytwitter.service.PostCommentService;
-import com.zyn.zzu.common.utils.PageUtils;
 import com.zyn.zzu.common.utils.R;
 
 
@@ -48,46 +44,5 @@ public class PostCommentController {
         List<Integer> newsFeeds =  postCommentService.getNewsFeed(userId);
         return R.ok().put("userId",newsFeeds);
     }
-
-
-    /**
-     * 信息
-     */
-//    @RequestMapping("/info/{commentId}")
-//    public R info(@PathVariable("commentId") Integer commentId){
-//		PostCommentEntity postComment = postCommentService.getById(commentId);
-//
-//        return R.ok().put("postComment", postComment);
-//    }
-
-    /**
-     * 保存
-     */
-//    @RequestMapping("/save")
-//    public R save(@RequestBody PostCommentEntity postComment){
-//		postCommentService.save(postComment);
-//
-//        return R.ok();
-//    }
-
-    /**
-     * 修改
-     */
-//    @RequestMapping("/update")
-//    public R update(@RequestBody PostCommentEntity postComment){
-//		postCommentService.updateById(postComment);
-//
-//        return R.ok();
-//    }
-
-    /**
-     * 删除
-     */
-//    @RequestMapping("/delete")
-//    public R delete(@RequestBody Integer[] commentIds){
-//		postCommentService.removeByIds(Arrays.asList(commentIds));
-//
-//        return R.ok();
-//    }
 
 }
